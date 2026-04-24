@@ -10,6 +10,7 @@ const main = async () => {
     for (const blog of blogs) {
       console.log(`${blog.author}: '${blog.title}', ${blog.likes} likes`)
     }
+    process.exit(0)
   } catch (err) {
     console.error('DB connection failed:', err)
   }

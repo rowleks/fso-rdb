@@ -5,7 +5,9 @@ const unknownEndpoint = (_, res) => {
 const errorHandler = (err, _, res, next) => {
   if (err.name === 'SequelizeValidationError') {
     return res.status(400).json({
-      error: err.errors?.map((error) => error.message).join(', ') || 'validation error',
+      error:
+        err.errors?.map(error => error.message).join(', ') ||
+        'validation error',
     })
   }
 
@@ -15,7 +17,8 @@ const errorHandler = (err, _, res, next) => {
 
   if (err.name === 'SequelizeUniqueConstraintError') {
     return res.status(409).json({
-      error: err.errors?.map((error) => error.message).join(', ') || 'duplicate value',
+      error:
+        err.errors?.map(error => error.message).join(', ') || 'duplicate value',
     })
   }
 
