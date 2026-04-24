@@ -18,7 +18,7 @@ app.use(middleware.errorHandler)
 const start = async () => {
   try {
     await connectDB()
-    await sequelize.sync()
+    await sequelize.sync({ alter: true })
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`)

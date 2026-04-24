@@ -1,14 +1,26 @@
-const Note = require('../database/schema/notes.schema')
+const { Note, User } = require('../database/schema')
 
 const router = require('express').Router()
 
 router.get('/', async (_, res) => {
-  const notes = await Note.findAll()
+  const notes = await Note.findAll({
+    attributes: { exclude: ['userId'] },
+    include: {
+      model: User,
+      attributes: ['name'],
+    },
+  })
   res.json(notes)
 })
 
 router.get('/:id', async (req, res) => {
-  const note = await Note.findByPk(req.params.id)
+  const note = await Note.findByPk(req.params.id, {
+    attributes: { exclude: ['userId'] },
+    include: {
+      model: User,
+      attributes: ['name'],
+    },
+  })
   if (note) {
     res.json(note)
   } else {

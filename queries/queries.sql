@@ -27,3 +27,5 @@ SELECT *
 FROM blogs;
 SELECT *
 FROM notes;
+SELECT *
+FROM users;

@@ -1,13 +1,27 @@
 const router = require('express').Router()
-const User = require('../database/schema/users.schema')
+const { User, Note } = require('../database/schema')
 
 router.get('/', async (_, res) => {
-  const users = await User.findAll()
+  const users = await User.findAll({
+    include: [
+      {
+        model: Note,
+        attributes: { exclude: ['userId'] },
+      },
+    ],
+  })
   res.json(users)
 })
 
 router.get('/:id', async (req, res) => {
-  const user = await User.findByPk(req.params.id)
+  const user = await User.findByPk(req.params.id, {
+    include: [
+      {
+        model: Note,
+        attributes: { exclude: ['userId'] },
+      },
+    ],
+  })
   if (user) {
     res.json(user)
   } else {
