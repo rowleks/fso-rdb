@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const { sequelize, connectDB } = require('./database')
 const config = require('./utils/config')
+const middleware = require('./utils/middleware')
 
 const app = express()
 const PORT = config.PORT
@@ -11,6 +12,8 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/', require('./routes'))
+app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
 
 const start = async () => {
   try {
