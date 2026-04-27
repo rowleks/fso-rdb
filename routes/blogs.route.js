@@ -55,7 +55,7 @@ router.post('/', verifyToken, async (req, res) => {
   res.json(newBlog)
 })
 
-router.put('/:id', verifyToken, async (req, res) => {
+router.put('/:id', async (req, res) => {
   const blog = await Blog.findByPk(req.params.id)
   if (blog) {
     // Use .set() and .save() to trigger validations and maintain the instance logic

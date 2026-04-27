@@ -7,7 +7,7 @@ router.get('/', async (_, res) => {
     attributes: [
       'author',
       [sequelize.fn('SUM', sequelize.col('likes')), 'likes'],
-      [sequelize.fn('Count', sequelize.col('id')), 'articles'],
+      [sequelize.fn('Count', sequelize.col('id')), 'blogs'],
     ],
     group: ['author'],
     order: [[sequelize.fn('SUM', sequelize.col('likes')), 'DESC']],
@@ -21,7 +21,7 @@ router.get('/:id', async (req, res) => {
     attributes: [
       'author',
       [sequelize.fn('SUM', sequelize.col('likes')), 'likes'],
-      [sequelize.fn('Count', sequelize.col('id')), 'articles'],
+      [sequelize.fn('Count', sequelize.col('id')), 'blogs'],
     ],
     where: {
       userId: req.params.id,
