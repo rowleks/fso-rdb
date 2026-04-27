@@ -1,14 +1,25 @@
-const Blog = require('../database/schema/blogs.schema')
+const { Blog, User } = require('../database/schema')
+const { verifyToken } = require('../utils/middleware')
 
 const router = require('express').Router()
 
 router.get('/', async (_, res) => {
-  const blogs = await Blog.findAll()
+  const blogs = await Blog.findAll({
+    include: {
+      model: User,
+      attributes: ['name'],
+    },
+  })
   res.json(blogs)
 })
 
 router.get('/:id', async (req, res) => {
-  const blog = await Blog.findByPk(req.params.id)
+  const blog = await Blog.findByPk(req.params.id, {
+    include: {
+      model: User,
+      attributes: ['name'],
+    },
+  })
   if (blog) {
     res.json(blog)
   } else {
@@ -16,12 +27,15 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.post('/', async (req, res) => {
-  const newBlog = await Blog.create(req.body)
+router.post('/', verifyToken, async (req, res) => {
+  const newBlog = await Blog.create({
+    ...req.body,
+    userId: req.user.id,
+  })
   res.json(newBlog)
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', verifyToken, async (req, res) => {
   const blog = await Blog.findByPk(req.params.id)
   if (blog) {
     // Use .set() and .save() to trigger validations and maintain the instance logic
@@ -33,7 +47,7 @@ router.put('/:id', async (req, res) => {
   }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
   const blog = await Blog.findByPk(req.params.id)
   if (!blog) {
     return res.status(404).json({ error: 'blog not found' })

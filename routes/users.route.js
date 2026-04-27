@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const { User, Note } = require('../database/schema')
+const { User, Blog } = require('../database/schema')
 
 router.get('/', async (_, res) => {
   const users = await User.findAll({
     include: [
       {
-        model: Note,
+        model: Blog,
         attributes: { exclude: ['userId'] },
       },
     ],
@@ -17,7 +17,7 @@ router.get('/:id', async (req, res) => {
   const user = await User.findByPk(req.params.id, {
     include: [
       {
-        model: Note,
+        model: Blog,
         attributes: { exclude: ['userId'] },
       },
     ],
