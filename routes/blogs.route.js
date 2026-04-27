@@ -1,10 +1,29 @@
+const { Op } = require('sequelize')
 const { Blog, User } = require('../database/schema')
 const { verifyToken } = require('../utils/middleware')
 
 const router = require('express').Router()
 
-router.get('/', async (_, res) => {
+router.get('/', async (req, res) => {
+  const where = {}
+
+  if (req.query.search) {
+    where[Op.or] = [
+      {
+        title: {
+          [Op.iLike]: `%${req.query.search}%`,
+        },
+      },
+      {
+        author: {
+          [Op.iLike]: `%${req.query.search}%`,
+        },
+      },
+    ]
+  }
+
   const blogs = await Blog.findAll({
+    where,
     include: {
       model: User,
       attributes: ['name'],
