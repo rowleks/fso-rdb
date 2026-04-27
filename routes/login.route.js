@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const bcrypt = require('bcryptjs')
 const config = require('../utils/config')
 const jwt = require('jsonwebtoken')
 const { User } = require('../database/schema')
@@ -6,13 +7,14 @@ const { User } = require('../database/schema')
 router.post('/', async (req, res) => {
   const { username, password } = req.body
 
-  const user = await User.findOne({
+  const user = await User.scope('withPasswordHash').findOne({
     where: { username },
   })
 
-  const loginCorrect = user && password === 'secret'
+  const passwordCorrect =
+    user && password ? await bcrypt.compare(password, user.passwordHash) : false
 
-  if (!loginCorrect) {
+  if (!passwordCorrect) {
     return res.status(401).json({
       error: 'invalid username or password',
     })

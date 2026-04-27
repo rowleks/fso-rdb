@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const bcrypt = require('bcryptjs')
 const { User, Blog } = require('../database/schema')
 
 router.get('/', async (_, res) => {
@@ -30,9 +31,20 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  const user = await User.create(req.body)
+  const { password, ...userData } = req.body
+  if (!password || password.length < 3) {
+    return res.status(400).json({
+      error: 'Password must be at least 3 characters long',
+    })
+  }
+  const passwordHash = await bcrypt.hash(password, 10)
+  const user = await User.create({
+    ...userData,
+    passwordHash,
+  })
 
-  res.status(201).json(user)
+  const { passwordHash: _, ...safeUser } = user.toJSON()
+  res.status(201).json(safeUser)
 })
 
 module.exports = router

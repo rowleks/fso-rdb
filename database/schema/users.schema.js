@@ -23,10 +23,24 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    passwordHash: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     tableName: 'users',
     underscored: true,
+    defaultScope: {
+      attributes: {
+        exclude: ['passwordHash'],
+      },
+    },
+    scopes: {
+      withPasswordHash: {
+        attributes: {},
+      },
+    },
   }
 )
 
