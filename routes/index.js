@@ -7,5 +7,6 @@ router.get('/', (_, res) => {
 router.use('/api/blogs', require('./blogs.route'))
 router.use('/api/login', require('./login.route'))
 router.use('/api/users', require('./users.route'))
+router.use('/api/authors', require('./authors.route'))
 
 module.exports = router
