@@ -23,6 +23,7 @@ build/
 .idea/
 *.swp
 *.swo
+.clinerules
 
 # OS metadata
 .DS_Store
