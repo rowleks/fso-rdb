@@ -53,6 +53,10 @@ router.delete('/:id', verifyToken, async (req, res) => {
     return res.status(404).json({ error: 'blog not found' })
   }
 
+  if (blog.userId !== req.user.id) {
+    return res.status(403).json({ error: 'unauthorized' })
+  }
+
   await blog.destroy()
   return res.status(204).end()
 })
