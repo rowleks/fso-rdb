@@ -1,7 +1,3 @@
--- Seed notes table
-INSERT INTO notes (content, important)
-VALUES ('Relational databases rule the world', true),
-  ('MongoDB is webscale', false);
 --Seed blogs table
 INSERT INTO blogs (author, url, title, likes)
 VALUES (
