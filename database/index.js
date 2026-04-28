@@ -1,5 +1,6 @@
 const { Sequelize } = require('sequelize')
 const config = require('../utils/config')
+const { Umzug, SequelizeStorage } = require('umzug')
 
 const sequelize = new Sequelize(config.DATABASE_URL, {
   dialect: 'postgres',
@@ -14,4 +15,20 @@ const connectDB = async () => {
   }
 }
 
-module.exports = { sequelize, connectDB }
+const runMigrations = async () => {
+  const umzug = new Umzug({
+    migrations: {
+      glob: 'database/migrations/*.js',
+    },
+    storage: new SequelizeStorage({ sequelize, tableName: 'migrations' }),
+    context: sequelize.getQueryInterface(),
+    logger: console,
+  })
+  const migrations = await umzug.up()
+  console.log(
+    'Migrations applied:',
+    migrations.map(m => m.name)
+  )
+}
+
+module.exports = { sequelize, connectDB, runMigrations }

@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
-const { sequelize, connectDB } = require('./database')
+const { runMigrations, connectDB } = require('./database')
 const config = require('./utils/config')
 const middleware = require('./utils/middleware')
 
@@ -18,7 +18,7 @@ app.use(middleware.errorHandler)
 const start = async () => {
   try {
     await connectDB()
-    await sequelize.sync({ alter: true })
+    await runMigrations()
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`)
