@@ -10,6 +10,12 @@
     "start": "node index.js",
     "start:test": "cross-env NODE_ENV=test PORT=3001 node index.js -- ",
     "dev": "node --watch index.js",
+    "migrate": "node database/migrate.js up",
+    "migrate:down": "node database/migrate.js down:one",
+    "migrate:down:all": "node database/migrate.js down",
+    "seed": "node database/migrate.js seed:up",
+    "seed:down": "node database/migrate.js seed:down:one",
+    "seed:down:all": "node database/migrate.js seed:down",
     "format": "prettier --write \"**/*.{js,json,md}\"",
     "test": "node --test --test-concurrency=1 tests/api_ch3.test.js"
   },

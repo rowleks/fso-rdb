@@ -2,11 +2,7 @@ const { QueryTypes } = require('sequelize')
 
 module.exports = {
   up: async ({ context: queryInterface }) => {
-    const seededUsernames = [
-      'admin@example.com',
-      'johndoe@example.com',
-      'janedoe@example.com',
-    ]
+    const seededUsernames = ['johndoe@example.com', 'janedoe@example.com']
 
     const insertedUsers = await queryInterface.sequelize.query(
       `SELECT id FROM users WHERE username IN (:usernames)`,
