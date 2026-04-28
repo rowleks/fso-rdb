@@ -1,0 +1,129 @@
+[
+  {
+    "id": "acd7bd0d-7fc3-440c-b9aa-b20f036e5269",
+    "name": "blogs",
+    "description": "",
+    "variables": [
+      {
+        "id": "67d53622-d17c-40d9-92d7-0c82db88b741",
+        "name": "token",
+        "initialValue": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvbGV4QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3NzczNzA5ODUsImV4cCI6MTc3NzM3NDU4NX0.QQRm07rvJDmWFcpkHi4t0GJ5n3j4lFsLyye5OBFyD2M",
+        "type": "default",
+        "enabled": true
+      }
+    ],
+    "items": [
+      {
+        "method": "POST",
+        "url": "{{baseUrl}}/blogs",
+        "headers": {},
+        "body": {
+          "mode": "raw",
+          "rawType": "json",
+          "value": "{\n  \"author\": \"Rowland Momoh\",\n  \"title\": \"Understand Promises in JavaScript\",\n  \"url\": \"https://medium.com/javascript-in-plain-english/understanding-promises-in-javascript-d853f4190e97\",\n  \"likes\": 11\n}"
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "token": "{{token}}"
+          }
+        },
+        "preRequestScript": "",
+        "postResponseScript": "",
+        "type": "request",
+        "id": "9ea53466-ccfa-4973-b05e-925ba97e01b8",
+        "name": "createBlog"
+      },
+      {
+        "id": "f12b3cee-aa90-46f3-abc5-7a4560e2e9be",
+        "name": "getAllBlogs",
+        "type": "request",
+        "method": "GET",
+        "url": "{{baseUrl}}/blogs",
+        "headers": {},
+        "body": {
+          "mode": "none"
+        }
+      }
+    ]
+  },
+  {
+    "id": "3ec7f41d-1991-4335-a1a7-50ba52954d52",
+    "name": "login",
+    "description": "",
+    "variables": [],
+    "items": [
+      {
+        "method": "POST",
+        "url": "{{baseUrl}}/login",
+        "headers": {},
+        "body": {
+          "mode": "raw",
+          "rawType": "json",
+          "value": "{\n  \"username\": \"rolex@gmail.com\",\n  \"password\": \"Rolex10\"\n}"
+        },
+        "auth": {
+          "type": "none"
+        },
+        "preRequestScript": "",
+        "postResponseScript": "",
+        "type": "request",
+        "id": "moigpzinzjl6w",
+        "name": "signIn"
+      }
+    ]
+  },
+  {
+    "id": "c90587e5-10c4-4639-bd75-1fdd709d8eaa",
+    "name": "users",
+    "description": "",
+    "variables": [],
+    "items": [
+      {
+        "id": "63eb0622-e44d-4ab3-959c-296865fa90d6",
+        "name": "getAllUsers",
+        "type": "request",
+        "method": "GET",
+        "url": "{{baseUrl}}/users",
+        "headers": {},
+        "body": {
+          "mode": "none"
+        }
+      },
+      {
+        "id": "345ebc23-73b1-488f-94a8-2aca9c040c33",
+        "name": "createUser",
+        "type": "request",
+        "method": "POST",
+        "url": "{{baseUrl}}/users",
+        "headers": {},
+        "body": {
+          "mode": "none"
+        }
+      }
+    ]
+  },
+  {
+    "id": "8e823277-fb4e-44c9-90eb-58245d162cd3",
+    "name": "authors",
+    "variables": [],
+    "items": [
+      {
+        "method": "GET",
+        "url": "{{baseUrl}}/authors",
+        "headers": {},
+        "body": {
+          "mode": "none"
+        },
+        "auth": {
+          "type": "none"
+        },
+        "preRequestScript": "",
+        "postResponseScript": "",
+        "type": "request",
+        "id": "moigml2rbwr68",
+        "name": "getAllAuthors"
+      }
+    ]
+  }
+]
