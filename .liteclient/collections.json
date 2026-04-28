@@ -60,7 +60,7 @@
         "body": {
           "mode": "raw",
           "rawType": "json",
-          "value": "{\n  \"username\": \"rolex@gmail.com\",\n  \"password\": \"Rolex10\"\n}"
+          "value": "{\n  \"username\": \"johndoe@example.com\",\n  \"password\": \"user123\"\n}"
         },
         "auth": {
           "type": "none"

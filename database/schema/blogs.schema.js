@@ -28,7 +28,6 @@ const Blog = sequelize.define(
   {
     tableName: 'blogs',
     underscored: true,
-    timestamps: false,
   }
 )
 

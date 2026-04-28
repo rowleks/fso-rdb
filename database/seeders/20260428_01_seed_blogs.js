@@ -16,6 +16,8 @@ module.exports = {
     const pickRandomUserId = () =>
       userIds[Math.floor(Math.random() * userIds.length)]
 
+    const now = new Date()
+
     const blogs = [
       {
         author: 'Dan Abramov',
@@ -23,6 +25,8 @@ module.exports = {
         url: 'https://overreacted.io/a-complete-guide-to-useeffect/',
         likes: 250,
         user_id: pickRandomUserId(),
+        created_at: now,
+        updated_at: now,
       },
       {
         author: 'Dan Abramov',
@@ -30,6 +34,8 @@ module.exports = {
         url: 'https://overreacted.io/making-setinterval-declarative-with-react-hooks/',
         likes: 180,
         user_id: pickRandomUserId(),
+        created_at: now,
+        updated_at: now,
       },
       {
         author: 'Addy Osmani',
@@ -37,6 +43,8 @@ module.exports = {
         url: 'https://addyosmani.com/blog/cost-of-javascript-2026/',
         likes: 210,
         user_id: pickRandomUserId(),
+        created_at: now,
+        updated_at: now,
       },
       {
         author: 'Addy Osmani',
@@ -44,6 +52,8 @@ module.exports = {
         url: 'https://addyosmani.com/blog/image-optimization/',
         likes: 160,
         user_id: pickRandomUserId(),
+        created_at: now,
+        updated_at: now,
       },
       {
         author: 'Martin Fowler',
@@ -51,6 +61,8 @@ module.exports = {
         url: 'https://martinfowler.com/articles/microservices.html',
         likes: 300,
         user_id: pickRandomUserId(),
+        created_at: now,
+        updated_at: now,
       },
       {
         author: 'Martin Fowler',
@@ -58,6 +70,8 @@ module.exports = {
         url: 'https://martinfowler.com/articles/feature-toggles.html',
         likes: 190,
         user_id: pickRandomUserId(),
+        created_at: now,
+        updated_at: now,
       },
       {
         author: 'Kent C. Dodds',
@@ -65,6 +79,8 @@ module.exports = {
         url: 'https://kentcdodds.com/blog/stop-using-isloading-booleans',
         likes: 145,
         user_id: pickRandomUserId(),
+        created_at: now,
+        updated_at: now,
       },
       {
         author: 'Guillermo Rauch',
@@ -72,6 +88,8 @@ module.exports = {
         url: 'https://vercel.com/blog/static-and-dynamic-rendering-in-next-js',
         likes: 175,
         user_id: pickRandomUserId(),
+        created_at: now,
+        updated_at: now,
       },
       {
         author: 'Sindre Sorhus',
@@ -79,6 +97,8 @@ module.exports = {
         url: 'https://sindresorhus.com/blog/get-ready-for-esm',
         likes: 130,
         user_id: pickRandomUserId(),
+        created_at: now,
+        updated_at: now,
       },
       {
         author: 'Sara Soueidan',
@@ -86,6 +106,8 @@ module.exports = {
         url: 'https://www.sarasoueidan.com/blog/accessible-svgs/',
         likes: 155,
         user_id: pickRandomUserId(),
+        created_at: now,
+        updated_at: now,
       },
     ]
 

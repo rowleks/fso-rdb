@@ -57,6 +57,14 @@ module.exports = {
         allowNull: false,
         references: { model: 'users', key: 'id' },
       },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
     })
   },
   down: async ({ context: queryInterface }) => {
