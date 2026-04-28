@@ -31,4 +31,20 @@ const runMigrations = async () => {
   )
 }
 
-module.exports = { sequelize, connectDB, runMigrations }
+const runSeedMigration = async () => {
+  const umzug = new Umzug({
+    migrations: {
+      glob: 'database/seeders/*.js',
+    },
+    storage: new SequelizeStorage({ sequelize, tableName: 'seed_migrations' }),
+    context: sequelize.getQueryInterface(),
+    logger: console,
+  })
+  const migrations = await umzug.up()
+  console.log(
+    'Seed migrations applied:',
+    migrations.map(m => m.name)
+  )
+}
+
+module.exports = { sequelize, connectDB, runMigrations, runSeedMigration }

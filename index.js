@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
-const { runMigrations, connectDB } = require('./database')
+const { runMigrations, runSeedMigration, connectDB } = require('./database')
 const config = require('./utils/config')
 const middleware = require('./utils/middleware')
 
@@ -19,6 +19,7 @@ const start = async () => {
   try {
     await connectDB()
     await runMigrations()
+    await runSeedMigration()
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`)
