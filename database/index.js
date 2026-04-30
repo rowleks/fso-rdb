@@ -16,6 +16,9 @@ const sequelize = new Sequelize(config.DATABASE_URL, {
 const connectDB = async () => {
   try {
     await sequelize.authenticate()
+    if (process.env.NODE_ENV === 'test') {
+      await runMigrations(sequelize)
+    }
     console.log('DB connected successfully')
   } catch (err) {
     console.error('DB connection failed:', err)
