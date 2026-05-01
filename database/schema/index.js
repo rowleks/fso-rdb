@@ -1,6 +1,7 @@
 const User = require('./users.schema')
 const Blog = require('./blogs.schema')
 const Readlist = require('./readlists.schema')
+const Session = require('./sessions.schema')
 
 /* A User can have many Notes.
 The foreignKey 'userId' on the Note model points back to the User's id. */
@@ -16,8 +17,15 @@ User.belongsToMany(Blog, { through: Readlist, as: 'readings' })
 /* A Blog can be saved by many Users. */
 Blog.belongsToMany(User, { through: Readlist, as: 'savedByUsers' })
 
+/* A User can have many server-side sessions. */
+User.hasMany(Session)
+
+/* A Session belongs to one User. */
+Session.belongsTo(User)
+
 module.exports = {
   User,
   Blog,
   Readlist,
+  Session,
 }
