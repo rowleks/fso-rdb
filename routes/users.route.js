@@ -15,6 +15,18 @@ router.get('/', async (_, res) => {
 })
 
 router.get('/:id', async (req, res) => {
+  const readQuery = req.query.read
+
+  if (
+    readQuery !== undefined &&
+    readQuery !== 'true' &&
+    readQuery !== 'false'
+  ) {
+    return res.status(400).json({
+      error: "read query parameter must be 'true' or 'false'",
+    })
+  }
+
   const user = await User.findByPk(req.params.id, {
     include: [
       {
@@ -26,7 +38,8 @@ router.get('/:id', async (req, res) => {
         as: 'readings',
         through: {
           as: 'reading_list',
-          attributes: ['id', 'read'], // Include join table ID and read status
+          attributes: ['id', 'read'],
+          where: readQuery == undefined ? undefined : { read: readQuery },
         },
         attributes: { exclude: ['userId'] },
       },
