@@ -68,4 +68,26 @@ router.delete('/:blogId', verifyToken, async (req, res) => {
   res.status(204).end()
 })
 
+router.put('/:id', verifyToken, async (req, res) => {
+  const { read } = req.body
+
+  if (read === undefined || typeof read !== 'boolean') {
+    return res.status(400).json({ error: 'read must be a true or false' })
+  }
+
+  const readlist = await Readlist.findByPk(req.params.id)
+  if (!readlist) {
+    return res.status(404).json({ error: 'blog not found in readlist' })
+  }
+
+  if (req.user.id !== readlist.userId && !req.user.admin) {
+    return res.status(401).json({ error: 'unauthorized' })
+  }
+
+  readlist.set({ read })
+  await readlist.save()
+
+  res.json(readlist)
+})
+
 module.exports = router

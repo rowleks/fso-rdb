@@ -25,7 +25,7 @@ router.get('/:id', async (req, res) => {
         model: Blog,
         as: 'readings',
         through: {
-          as: 'readinglists',
+          as: 'reading_list',
           attributes: ['id', 'read'], // Include join table ID and read status
         },
         attributes: { exclude: ['userId'] },
