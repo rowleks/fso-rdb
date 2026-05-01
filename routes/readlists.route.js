@@ -17,14 +17,10 @@ router.get('/:userId', async (req, res) => {
   res.json(user.readings)
 })
 
-router.post('/', verifyToken, async (req, res) => {
+router.post('/', async (req, res) => {
   const { blogId, userId } = req.body
   if (!blogId || !userId) {
     return res.status(400).json({ error: 'blogId and userId are required' })
-  }
-
-  if (req.user.id !== userId && !req.user.admin) {
-    return res.status(403).json({ error: 'unauthorized' })
   }
 
   const blog = await Blog.findByPk(blogId)
@@ -32,15 +28,25 @@ router.post('/', verifyToken, async (req, res) => {
     return res.status(404).json({ error: 'blog not found' })
   }
 
+  const user = await User.findByPk(userId)
+  if (!user) {
+    return res.status(404).json({ error: 'user not found' })
+  }
+
   try {
-    await Readlist.create({
+    const readlist = await Readlist.create({
       userId,
       blogId,
     })
-    res.status(201).json({ message: 'blog added to readlist' })
+    res.status(201).json({
+      id: readlist.id,
+      user_id: readlist.userId,
+      blog_id: readlist.blogId,
+      read: readlist.read,
+    })
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
-      return res.status(409).json({ error: 'blog already in readlist' })
+      return res.status(400).json({ error: 'blog already in readlist' })
     }
     throw err
   }
