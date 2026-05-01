@@ -9,5 +9,5 @@ router.use('/api/login', require('./login.route'))
 router.use('/api/reset', require('./reset.route'))
 router.use('/api/users', require('./users.route'))
 router.use('/api/authors', require('./authors.route'))
-
+router.use('/api/readinglists', require('./readlists.route'))
 module.exports = router

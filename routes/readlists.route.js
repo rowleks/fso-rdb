@@ -1,0 +1,71 @@
+const { User, Blog, Readlist } = require('../database/schema')
+const { verifyToken } = require('../utils/middleware')
+
+const router = require('express').Router()
+
+router.get('/:userId', async (req, res) => {
+  const user = await User.findByPk(req.params.userId, {
+    include: {
+      model: Blog,
+      as: 'readings',
+      through: { attributes: [] },
+    },
+  })
+  if (!user) {
+    return res.status(404).json({ error: 'user not found' })
+  }
+  res.json(user.readings)
+})
+
+router.post('/', verifyToken, async (req, res) => {
+  const { blogId, userId } = req.body
+  if (!blogId || !userId) {
+    return res.status(400).json({ error: 'blogId and userId are required' })
+  }
+
+  if (req.user.id !== userId && !req.user.admin) {
+    return res.status(403).json({ error: 'unauthorized' })
+  }
+
+  const blog = await Blog.findByPk(blogId)
+  if (!blog) {
+    return res.status(404).json({ error: 'blog not found' })
+  }
+
+  try {
+    await Readlist.create({
+      userId,
+      blogId,
+    })
+    res.status(201).json({ message: 'blog added to readlist' })
+  } catch (err) {
+    if (err.name === 'SequelizeUniqueConstraintError') {
+      return res.status(409).json({ error: 'blog already in readlist' })
+    }
+    throw err
+  }
+})
+
+router.delete('/:blogId', verifyToken, async (req, res) => {
+  const { userId } = req.body
+  if (!userId) {
+    return res.status(400).json({ error: 'userId is required' })
+  }
+
+  if (req.user.id !== userId && !req.user.admin) {
+    return res.status(403).json({ error: 'unauthorized' })
+  }
+
+  const deleted = await Readlist.destroy({
+    where: {
+      userId,
+      blogId: req.params.blogId,
+    },
+  })
+  if (!deleted) {
+    return res.status(404).json({ error: 'blog not found in readlist' })
+  }
+  res.status(204).end()
+})
+
+module.exports = router

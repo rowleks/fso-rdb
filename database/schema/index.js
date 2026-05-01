@@ -11,7 +11,7 @@ The foreign key 'userId' is on the Note model. */
 Blog.belongsTo(User)
 
 /* A User can save many Blogs to their readlist. */
-User.belongsToMany(Blog, { through: Readlist, as: 'savedBlogs' })
+User.belongsToMany(Blog, { through: Readlist, as: 'readings' })
 
 /* A Blog can be saved by many Users. */
 Blog.belongsToMany(User, { through: Readlist, as: 'savedByUsers' })

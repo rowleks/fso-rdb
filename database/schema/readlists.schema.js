@@ -17,6 +17,11 @@ const Readlist = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    read: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
   {
     tableName: 'readlists',
